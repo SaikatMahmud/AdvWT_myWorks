@@ -11,7 +11,10 @@ class UMSTeacher extends Model
     protected $table='teachers';
 
     public function Departments(){
-        return $this->belongsTo(UMSDepartment::class,'d_id','teacher_id');
+        return $this->belongsTo(UMSDepartment::class,'d_id','department_id');
+    }
+    public function Courses(){
+        return $this->hasMany(UMSTeacher_Course::class,'teacher_id','teacher_id');
     }
 
 }
