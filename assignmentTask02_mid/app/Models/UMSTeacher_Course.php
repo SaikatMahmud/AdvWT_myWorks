@@ -10,7 +10,7 @@ class UMSTeacher_Course extends Model
     use HasFactory;
     protected $table='teacher_courses';
 
-    public function Teacher(){
+    public function Teachers(){
         return $this->belongsTo(UMSTeacher::class,'teacher_id','teacher_id');
     }
 

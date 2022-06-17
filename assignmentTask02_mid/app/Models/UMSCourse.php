@@ -18,7 +18,7 @@ class UMSCourse extends Model
         return $this->hasMany(UMSStudent_Course::class,'course_id','course_id');
     }
 
-    public function Teacher(){
+    public function Teachers(){
         return $this->hasMany(UMSTeacher_Course::class,'course_id','course_id');
     }
     // public function Teachers(){ //course has many teacher
