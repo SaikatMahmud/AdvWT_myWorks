@@ -28,7 +28,6 @@
 
 
 
-
 {{-- {{
     foreach($c->Teachers()->where('course_id',$c->course_id)->get() as $teachers) {
         $teachers->

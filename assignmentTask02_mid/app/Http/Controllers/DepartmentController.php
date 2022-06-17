@@ -13,7 +13,7 @@ class DepartmentController extends Controller
     public function getAll(){
             $courses= UMSCourse::all();
             return view('all_info.details')->with('courses',$courses);
-
+            
     }
 }
            // return $course;
