@@ -47,13 +47,13 @@ class myPageControl extends Controller
 
         public function stdlist(){
         //$st= UMSStudent::find(5)->getDepartments;
-$st= UMSStudent::first(['id','d_id']);
+$st= UMSStudent::first();
         return $st->getDepartments;
         }
 
         public function deptstd(){
-            $dept = UMSDepartment::find(1)->getStudents;
-            return $dept;
+            $dept = UMSDepartment::first();
+            return $dept->getStudents;
         }
 
 }

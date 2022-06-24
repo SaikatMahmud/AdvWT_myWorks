@@ -11,7 +11,7 @@ class UMSDepartment extends Model
     protected $table='departments';
 
     public function getStudents(){
-        return $this->hasMany(UMSStudent::class,'d_id','id');
+        return $this->hasMany(UMSStudent::class,'d_id','department_id');
     }
 
     

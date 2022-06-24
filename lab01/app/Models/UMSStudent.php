@@ -11,7 +11,7 @@ class UMSStudent extends Model
     protected $table='students';
 
     public function getDepartments(){
-        return $this->belongsTo(UMSDepartment::class,'d_id','id');
+        return $this->belongsTo(UMSDepartment::class,'d_id','department_id');
     }
 
 }
