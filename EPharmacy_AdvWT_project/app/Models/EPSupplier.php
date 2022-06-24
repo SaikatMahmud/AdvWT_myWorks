@@ -11,7 +11,7 @@ class EPSupplier extends Model
     protected $table='suppliers';
 
     public function Medicines(){
-        return $this->hasMany(EPSupplier_Medicine::class,'s_id','supplier_id');
+        return $this->hasMany(EPSupplier_Medicine::class,'supplier_id','supplier_id');
     }
 
 }

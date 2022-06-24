@@ -11,11 +11,11 @@ class EPMedicine extends Model
     protected $table='medicines';
 
     public function Orders(){
-        return $this->hasMany(EPOrder_Medicine::class,'m_id','medicine_id');
+        return $this->hasMany(EPOrder_Medicine::class,'medicine_id','medicine_id');
     }
 
     public function Suppliers(){
-        return $this->hasMany(EPSupplier_Medicine::class,'m_id','medicine_id');
+        return $this->hasMany(EPSupplier_Medicine::class,'medicine_id','medicine_id');
     }
 
 }

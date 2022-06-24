@@ -19,7 +19,7 @@ class EPOrder extends Model
     }
 
     public function Medicines(){
-        return $this->hasMany(EPOrder_Medicine::class,'o_id','order_id');
+        return $this->hasMany(EPOrder_Medicine::class,'order_id','order_id');
     }
 
 }

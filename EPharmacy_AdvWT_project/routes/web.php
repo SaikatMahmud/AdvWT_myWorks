@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[UserController::class,'getAll'])->name('details.all');
+//Route::get('/',[UserController::class,'getAll'])->name('details.all');
+Route::get('/',[CustomerController::class,'home'])->name('home');
+Route::get('/AboutUs',[CustomerController::class,'about'])->name('about');
+Route::get('/Registration',[CustomerController::class,'reg'])->name('user.reg');
+Route::get('/Login',[CustomerController::class,'login'])->name('user.login');
+
+Route::post('/Registration',[CustomerController::class,'regSubmit'])->name('user.reg.submit');

@@ -11,11 +11,11 @@ class EPSupplier_Medicine extends Model
     protected $table='supplier_medicine';
 
     public function Medicines(){
-        return $this->belongsTo(EPMedicine::class,'m_id','medicine_id');
+        return $this->belongsTo(EPMedicine::class,'medicine_id','medicine_id');
     }
 
     public function Suppliers(){
-        return $this->belongsTo(EPSupplier::class,'s_id','supplier_id');
+        return $this->belongsTo(EPSupplier::class,'supplier_id','supplier_id');
     }
 
 }
