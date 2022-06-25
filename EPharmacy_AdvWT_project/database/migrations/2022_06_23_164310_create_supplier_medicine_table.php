@@ -15,11 +15,12 @@ class CreateSupplierMedicineTable extends Migration
     {
         Schema::create('supplier_medicine', function (Blueprint $table) {
 
-            $table->integer('s_id')->unsigned();
-            $table->integer('m_id')->unsigned();
+            $table->increments('sm_id');
+            $table->integer('supplier_id')->unsigned();
+            $table->integer('medicine_id')->unsigned();
 
-            $table->foreign('s_id')->references('supplier_id')->on('suppliers')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('m_id')->references('medicine_id')->on('medicines')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('supplier_id')->references('supplier_id')->on('suppliers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('medicine_id')->references('medicine_id')->on('medicines')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

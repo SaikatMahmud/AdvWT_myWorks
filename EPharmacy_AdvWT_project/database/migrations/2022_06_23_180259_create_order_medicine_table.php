@@ -14,11 +14,13 @@ class CreateOrderMedicineTable extends Migration
     public function up()
     {
         Schema::create('order_medicine', function (Blueprint $table) {
-            $table->integer('o_id')->unsigned();
-            $table->integer('m_id')->unsigned();
+           
+            $table->increments('om_id');
+            $table->integer('order_id')->unsigned();
+            $table->integer('medicine_id')->unsigned();
 
-            $table->foreign('o_id')->references('order_id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('m_id')->references('medicine_id')->on('medicines')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('order_id')->references('order_id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('medicine_id')->references('medicine_id')->on('medicines')->onDelete('cascade')->onUpdate('cascade');;
         });
     }
 

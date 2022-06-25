@@ -20,10 +20,10 @@ class CreateDeliverymansTable extends Migration
                 $table->string('delman_mob',15)->unique();
                 $table->string('delman_nid',15)->unique();
                 $table->string('delman_add',70);
+                $table->string('password',60);
                // $table->timestamp('email_verified_at')->nullable();
-                $table->binary('password',60);
                 //$table->rememberToken();
-                $table->timestamps();
+               // $table->timestamps();
             });
         
     }

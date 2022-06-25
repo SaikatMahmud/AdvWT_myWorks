@@ -18,11 +18,11 @@ class CreateCustomersTable extends Migration
             $table->string('customer_name',35);
             $table->string('customer_email',30)->unique();
             $table->string('customer_mob',15)->unique();
-            $table->string('supplier_add',70);
+            $table->string('customer_add',70);
+            $table->string('password',60);
            // $table->timestamp('email_verified_at')->nullable();
-            $table->binary('password',60);
             //$table->rememberToken();
-            $table->timestamps();
+           // $table->timestamps();
         });
     }
 

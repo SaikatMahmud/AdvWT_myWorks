@@ -9,6 +9,7 @@ class EPCustomer extends Model
 {
     use HasFactory;
     protected $table='customers';
+    public $timestamps=false;
 
     public function Orders(){
         return $this->hasMany(EPOrder::class,'c_id','customer_id');

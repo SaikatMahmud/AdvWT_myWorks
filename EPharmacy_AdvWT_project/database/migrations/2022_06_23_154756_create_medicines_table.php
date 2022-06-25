@@ -16,10 +16,10 @@ class CreateMedicinesTable extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->increments('medicine_id');
             $table->string('medicine_name',35);
-            $table->string('price',8);
+            $table->float('price',8);
             $table->string('genre',30);
             $table->string('details',100);
-            $table->string('availability',5);
+            $table->integer('availability',5);
             
            // $table->timestamp('email_verified_at')->nullable();
             //$table->binary('password',60);
