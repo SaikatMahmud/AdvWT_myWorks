@@ -19,14 +19,10 @@ class CustomerController extends Controller
         return view('public.reg');
     }
 
-    public function login(){
-        return view('public.login');
-    }
 
     public function regSubmit(Request $rq){
         {
-            $this->validate(
-                $rq,
+            $rq->validate(
                 [
                     "name" => "required",
                     "email" => "required|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",

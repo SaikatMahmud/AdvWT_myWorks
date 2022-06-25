@@ -41,6 +41,26 @@ return [
             'provider' => 'users',
         ],
 
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'worker' => [
+            'driver' => 'session',
+            'provider' => 'workers',
+        ],
+
+        'supplier' => [
+            'driver' => 'session',
+            'provider' => 'suppliers',
+        ],
+
+        'deliveryman' => [
+            'driver' => 'session',
+            'provider' => 'deliverymans',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -69,6 +89,26 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        'workers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Worker::class,
+        ],
+
+        'suppliers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Supplier::class,
+        ],
+
+        'deliverymans' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Deliveryman::class,
         ],
 
         // 'users' => [
