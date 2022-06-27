@@ -1,5 +1,7 @@
-@extends('layouts.beforeLogin')
+@extends((!session()->has('loggedCustomer') ? 'layouts.beforeLogin' : 'layouts.afterLogin'))
 @section('content')
+@if(!Session::has('loggedCustomer'))
+<h4>{{Session::get('msg')}}</h4>
 <form method="post" action="">
     {{@csrf_field()}}
     Email: <input type="text" name="email" placeholder="Enter email" value="{{old('email')}}"><br>
@@ -13,4 +15,14 @@
 
     <input type="submit" value="Login">
 </form>
-    @endsection
+
+    @error('notFound')
+    {{$message}}<br>
+    @enderror
+
+    @else
+    <h3>You are already logged in</h3>
+    <h4>Go to home <a href="{{route('home')}}">Home</a></h4>
+
+@endsection
+@endif

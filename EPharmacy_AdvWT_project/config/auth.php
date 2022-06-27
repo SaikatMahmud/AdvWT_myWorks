@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'supplier' => [
+            'driver' => 'session',
+            'provider' => 'suppliers',
+        ],
+        
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -51,10 +56,6 @@ return [
             'provider' => 'workers',
         ],
 
-        'supplier' => [
-            'driver' => 'session',
-            'provider' => 'suppliers',
-        ],
 
         'deliveryman' => [
             'driver' => 'session',

@@ -1,4 +1,8 @@
-@extends('layouts.beforeLogin')
+
+@extends((!session()->has('loggedCustomer') ? 'layouts.beforeLogin' : 'layouts.afterLogin'))
+@if (session()->has('loggedCustomer'))
+@php $user=session()->get('loggedCustomer'); @endphp    
+@endif
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +12,6 @@
     <title>Document</title>
 </head>
 <body>
-    this is home
+    user id
 </body>
 </html>

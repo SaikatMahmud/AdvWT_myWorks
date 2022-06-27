@@ -19,7 +19,7 @@ class CreateMedicinesTable extends Migration
             $table->float('price',8);
             $table->string('genre',30);
             $table->string('details',100);
-            $table->integer('availability',5);
+            $table->string('availability',5);
             
            // $table->timestamp('email_verified_at')->nullable();
             //$table->binary('password',60);

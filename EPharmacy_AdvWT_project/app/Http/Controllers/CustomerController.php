@@ -8,17 +8,16 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     public function home(){
-        return view('public.homepage');
+        return view('customer.homepage');
     }
 
     public function about(){
-        return view('public.about');
+        return view('about');
     }
 
     public function reg(){
-        return view('public.reg');
+        return view('customer.reg');
     }
-
 
     public function regSubmit(Request $rq){
         {

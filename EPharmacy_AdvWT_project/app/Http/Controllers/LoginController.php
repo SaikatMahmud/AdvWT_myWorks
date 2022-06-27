@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EPAdmin;
 use App\Models\EPCustomer;
+use App\Models\EPDeliveryman;
 use App\Models\EPSupplier;
+use App\Models\EPWorker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public function login(){
-        return view('public.login');
+        return view('login');   
+    }
+    public function logout(){
+        session()->flush();
+        session()->flash('msg','Sucessfully Logged out');
+        return redirect()->route('user.login');
     }
 
     public function verifyLogin(Request $rq){
@@ -22,17 +30,26 @@ class LoginController extends Controller
             );
     
             if (Auth::attempt(['customer_email'=>$rq->email,'password'=>$rq->password])) {
-                    //no guard, default auth with User.php
-                $cus =EPCustomer::where('customer_email', $rq->email)->first();
-                return $cus;
+                    //no guard, default auth with 'User.php' model
+                $cus =EPCustomer::where('customer_email', $rq->email)->first(['customer_id']);
+                session()->put('loggedCustomer',$cus->customer_id);
+                return redirect()->route('home');
             }
-
             else if (Auth::guard('supplier')->attempt(['supplier_email'=>$rq->email,'password'=>$rq->password])) {
-    
-                $cus =EPSupplier::where('supplier_email', $rq->email)->first();
-                return $cus;
+                return "You are Supplier !";
             }
-
+            else if (Auth::guard('deliveryman')->attempt(['delman_email'=>$rq->email,'password'=>$rq->password])) {
+                return "You are Deliveryman !";
+            }
+            else if (Auth::guard('worker')->attempt(['worker_email'=>$rq->email,'password'=>$rq->password])) {
+                return "You are Worker !";
+            }
+            else if (Auth::guard('admin')->attempt(['admin_email'=>$rq->email,'password'=>$rq->password])) {
+                return "You are Admin";
+            }
+            else
+                return back()->withErrors(
+                    ["notFound" => "Email or password not found"]);
 
 
             //    if ($user->type == 'Admin'){
@@ -46,8 +63,5 @@ class LoginController extends Controller
             //     }
             // }
     
-            // else
-            //     return back()->withErrors(
-            //         ["email" => "Email or password not found"]);
         }
 }

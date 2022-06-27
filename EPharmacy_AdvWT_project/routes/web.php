@@ -19,8 +19,9 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/',[UserController::class,'getAll'])->name('details.all');
 Route::get('/',[CustomerController::class,'home'])->name('home');
 Route::get('/AboutUs',[CustomerController::class,'about'])->name('about');
-Route::get('/Registration',[CustomerController::class,'reg'])->name('user.reg');
+Route::get('/Registration',[CustomerController::class,'reg'])->name('cus.reg');
 Route::get('/Login',[LoginController::class,'login'])->name('user.login');
+Route::get('/Logout',[LoginController::class,'logout'])->name('user.logout');
 
-Route::post('/Registration',[CustomerController::class,'regSubmit'])->name('user.reg.submit');
+Route::post('/Registration',[CustomerController::class,'regSubmit'])->name('cus.reg.submit');
 Route::post('/Login',[LoginController::class,'verifyLogin'])->name('user.login.verify');
