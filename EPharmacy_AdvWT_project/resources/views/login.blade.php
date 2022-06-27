@@ -12,13 +12,13 @@
     @error('password')
     {{$message}}<br>
     @enderror
-
     <input type="submit" value="Login">
-</form>
-
+    
     @error('notFound')
     {{$message}}<br>
     @enderror
+</form>
+
 
     @else
     <h3>You are already logged in</h3>

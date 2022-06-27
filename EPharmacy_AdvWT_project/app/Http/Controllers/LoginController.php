@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function login(){
+    public function login(){ //all done
         return view('login');   
     }
     public function logout(){
@@ -31,8 +31,8 @@ class LoginController extends Controller
     
             if (Auth::attempt(['customer_email'=>$rq->email,'password'=>$rq->password])) {
                     //no guard, default auth with 'User.php' model
-                $cus =EPCustomer::where('customer_email', $rq->email)->first(['customer_id']);
-                session()->put('loggedCustomer',$cus->customer_id);
+                $cus =EPCustomer::where('customer_email', $rq->email)->first();
+                session()->put('loggedCustomer',$cus);
                 return redirect()->route('home');
             }
             else if (Auth::guard('supplier')->attempt(['supplier_email'=>$rq->email,'password'=>$rq->password])) {

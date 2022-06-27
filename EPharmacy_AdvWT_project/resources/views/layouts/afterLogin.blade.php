@@ -2,11 +2,18 @@
     <head></head>
     <body>
         <div>
-            <a href="{{route('user.login')}}">Your Profile</a>
+            <a href="{{route('home')}}">Home</a>
             ||&emsp;
             <a href="{{route('about')}}">About Us</a>
+            ||&emsp; &emsp;  &emsp;  &emsp; 
+            <a href="{{route('cus.profile')}}">Edit Profile</a>
+            ||&emsp; 
+            <a href="{{route('cus.cart')}}">Cart</a>
+            ||&emsp;
+            <a href="{{route('cus.orders')}}">Orders</a>
             ||&emsp;
             <button type="button"><a href="{{route('user.logout')}}">Logout</a></button>
+
             
         </div>
         <br>

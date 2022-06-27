@@ -17,11 +17,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::get('/',[UserController::class,'getAll'])->name('details.all');
-Route::get('/',[CustomerController::class,'home'])->name('home');
-Route::get('/AboutUs',[CustomerController::class,'about'])->name('about');
-Route::get('/Registration',[CustomerController::class,'reg'])->name('cus.reg');
-Route::get('/Login',[LoginController::class,'login'])->name('user.login');
-Route::get('/Logout',[LoginController::class,'logout'])->name('user.logout');
+Route::get('/login',[LoginController::class,'login'])->name('user.login');
+Route::get('/logout',[LoginController::class,'logout'])->name('user.logout');
+Route::get('/registration',[CustomerController::class,'reg'])->name('cus.reg');
+Route::post('/registration',[CustomerController::class,'regSubmit'])->name('cus.reg.submit');
+Route::post('/login',[LoginController::class,'verifyLogin'])->name('user.login.verify');
 
-Route::post('/Registration',[CustomerController::class,'regSubmit'])->name('cus.reg.submit');
-Route::post('/Login',[LoginController::class,'verifyLogin'])->name('user.login.verify');
+Route::get('/',[CustomerController::class,'home'])->name('home');
+Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
+
+Route::get('/cart',[CustomerController::class,'cart'])->name('cus.cart');
+Route::get('/profile',[CustomerController::class,'profile'])->name('cus.profile');
+Route::post('/profile',[CustomerController::class,'editProfile'])->name('cus.profile.edit');
+Route::get('/orders',[CustomerController::class,'orders'])->name('cus.orders');
+
