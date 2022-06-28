@@ -11,12 +11,10 @@ class CustomerController extends Controller
     {
         return view('customer.homepage'); //done
     }
-
     public function about()
     {
         return view('about'); //done
     }
-
     public function reg()
     {
         return view('customer.reg'); //done
@@ -24,7 +22,8 @@ class CustomerController extends Controller
 
     public function profile()
     {
-        return view('customer.profile');
+        $cus=EPCustomer::where('customer_id',(session()->get('loggedCustomer')->customer_id))->first();
+        return view('customer.profile')->with('cus',$cus);
     }
     public function cart()
     {
@@ -42,6 +41,8 @@ class CustomerController extends Controller
                 "name" => "required",
                 "email" => "required|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",
                 "mobile" => "required",
+                "cus_pic"=>"mimes:jpg,png,jpeg"
+
                 // "password" => "required|min:4", //|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}+$/",
                 //"confirmPass" => "required|min:4|same:password",
             ],
@@ -50,15 +51,22 @@ class CustomerController extends Controller
                 //"confirmPass.same" => "Both passsword not matched"
             ]
         );
+        $image_name="";
+        if($rq->hasFile('cus_pic')){
+        $image_name=(session()->get('loggedCustomer')->customer_id)."_".(session()->get('loggedCustomer')->customer_name)
+                                                        ."_".time().".".$rq->file('cus_pic')->getClientOriginalExtension();
+        $rq->file('cus_pic')->storeAs('public/cus_pic',$image_name);
+        }
         EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->update(
-            array(
-                'customer_name' => $rq->name,
+               [ 'customer_name' => $rq->name,
                 'customer_email' => $rq->email,
                 'customer_mob' => $rq->mobile,
-                'customer_add' => $rq->address
-            )
+                'customer_add' => $rq->address,
+                'pro_pic'=>"cus_pic/".$image_name]
         );
-        session()->flash('msg','Profile edited successfully');
+
+
+        session()->flash('msg','Edit saved');
         return back();
     }
 

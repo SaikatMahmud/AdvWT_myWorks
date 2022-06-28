@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/',[UserController::class,'getAll'])->name('details.all');
+Route::get('/testall',[UserController::class,'getAll'])->name('details.all');
 Route::get('/login',[LoginController::class,'login'])->name('user.login');
 Route::get('/logout',[LoginController::class,'logout'])->name('user.logout');
 Route::get('/registration',[CustomerController::class,'reg'])->name('cus.reg');

@@ -7,6 +7,7 @@ use App\Models\EPDeliveryman;
 use App\Models\EPMedicine;
 use App\Models\EPOrder;
 use App\Models\EPSupplier;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
     //**********EITA EMNI, TRIAL******** *
@@ -14,6 +15,8 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function getAll(){
+        $currentTime = Carbon::now();
+        return $currentTime;
      // $med=EPMedicine::first()->Orders()->where('order_id',Orders->order_id)->first()->Delmans->delman_name;
     //  $med=EPMedicine::first()->Orders()->where('Order_id',3)->Delmans->delman_name;
     //  return $med;
