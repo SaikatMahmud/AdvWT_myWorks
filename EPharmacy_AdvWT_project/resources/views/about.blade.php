@@ -8,5 +8,6 @@
 </head>
 <body>
     this is about
+    {{-- <img src="{{ asset('storage/cus_pic/10_Saikat cus_1656436989.jpg') }}" alt="profile pic"> --}}
 </body>
 </html>
