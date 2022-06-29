@@ -23,7 +23,7 @@ Route::post('/login',[LoginController::class,'verifyLogin'])->name('user.login.v
 Route::get('/logout',[LoginController::class,'logout'])->name('user.logout');
 Route::get('/registration',[CustomerController::class,'reg'])->name('cus.reg');
 Route::post('/registration',[CustomerController::class,'regSubmit'])->name('cus.reg.submit');
-Route::post('/search',[MedicineController::class,'searchResult'])->name('search.result');
+Route::get('/search',[MedicineController::class,'searchResult'])->name('search.result');
 
 Route::get('/',[CustomerController::class,'home'])->name('home');
 Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
