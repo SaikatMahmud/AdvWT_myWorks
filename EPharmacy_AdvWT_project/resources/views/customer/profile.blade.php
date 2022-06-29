@@ -2,6 +2,12 @@
 {{-- @php $cus=Session::get('loggedCustomer'); @endphp --}}
 @section('content')
 <h4>{{Session::get('msg')}}</h4>
+@php
+    $image=Session::get('loggedCustomer')->customer_id."_".Session::get('loggedCustomer')->customer_name.".jpg";
+   // $imageFull=Storage::extension('public/cus_pic/'.$image);
+@endphp
+<p><img src="{{asset('storage/cus_pic').'/'.$image}}" alt="profile pic" height="90px" width="100px"><br></p>
+
 <form method="post" action="" enctype="multipart/form-data">
     {{@csrf_field()}}
     Name: <input type="text" name="name" value="{{$cus->customer_name}}"><br>
@@ -32,5 +38,4 @@
         <br>
         <input type="submit" value="Save">
     </form>
-    <img src="{{asset('storage/cus_pic/10_Saikat cus_1656436989.jpg')}}" alt="profile pic" height="90px" width="100px">
 @endsection

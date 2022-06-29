@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/testall',[UserController::class,'getAll'])->name('details.all');
 Route::get('/login',[LoginController::class,'login'])->name('user.login');
+Route::post('/login',[LoginController::class,'verifyLogin'])->name('user.login.verify');
 Route::get('/logout',[LoginController::class,'logout'])->name('user.logout');
 Route::get('/registration',[CustomerController::class,'reg'])->name('cus.reg');
 Route::post('/registration',[CustomerController::class,'regSubmit'])->name('cus.reg.submit');
-Route::post('/login',[LoginController::class,'verifyLogin'])->name('user.login.verify');
+Route::post('/search',[MedicineController::class,'searchResult'])->name('search.result');
 
 Route::get('/',[CustomerController::class,'home'])->name('home');
 Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
