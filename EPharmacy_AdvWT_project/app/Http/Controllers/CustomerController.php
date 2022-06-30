@@ -69,6 +69,7 @@ class CustomerController extends Controller
                 'customer_add' => $rq->address,
                 'pro_pic'=>"cus_pic/".$image_name]
         );
+        // getting new session after profile edit
         $cus =EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->first();
         session()->forget('loggedCustomer');
         session()->put('loggedCustomer',$cus);
@@ -78,7 +79,6 @@ class CustomerController extends Controller
 
     public function regSubmit(Request $rq)
     {
-
         $rq->validate(
             [
                 "name" => "required",

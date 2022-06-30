@@ -9,7 +9,9 @@
         <input type="submit" value="search">
     </form>
 </div>
-
+@error('stockOut')
+{{$message}} <br>
+@enderror
     <div>
         <p align="center"><b>Medicine details:</b></p>
         <table border="2" align="center" cellpadding="10" width="30%">

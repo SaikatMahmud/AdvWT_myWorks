@@ -10,7 +10,9 @@
         <input type="submit" value="search">
     </form>
 </div>
-
+@error('stockOut')
+{{$message}} <br>
+@enderror
 @foreach ($results as $med)
 <table border="1" align="center" cellpadding="10" width="40%">
     <td>

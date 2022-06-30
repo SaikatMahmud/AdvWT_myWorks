@@ -27,6 +27,7 @@ Route::post('/registration',[CustomerController::class,'regSubmit'])->name('cus.
 Route::get('/search',[MedicineController::class,'searchResult'])->name('search.result');
 Route::get('/details/med/id={id}',[MedicineController::class,'details'])->name('med.details');
 Route::get('/med/id={id}/Order/place',[OrderController::class,'placeOrder'])->name('place.order');
+Route::post('/order/confirm',[OrderController::class,'confirmOrder'])->name('confirm.order');
 
 Route::get('/',[CustomerController::class,'home'])->name('home');
 Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
