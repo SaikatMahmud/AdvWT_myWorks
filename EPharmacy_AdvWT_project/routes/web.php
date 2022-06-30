@@ -24,6 +24,8 @@ Route::get('/logout',[LoginController::class,'logout'])->name('user.logout');
 Route::get('/registration',[CustomerController::class,'reg'])->name('cus.reg');
 Route::post('/registration',[CustomerController::class,'regSubmit'])->name('cus.reg.submit');
 Route::get('/search',[MedicineController::class,'searchResult'])->name('search.result');
+Route::get('/details/med/id={id}',[MedicineController::class,'details'])->name('med.details');
+Route::get('/med/id={id}/Order/place',[MedicineController::class,'placeOrder'])->name('place.order');
 
 Route::get('/',[CustomerController::class,'home'])->name('home');
 Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');

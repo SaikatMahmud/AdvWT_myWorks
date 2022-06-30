@@ -21,4 +21,10 @@ class MedicineController extends Controller
         //return view('customer.search')
         // print_r($rq->search);
     }
+
+    public function details($id)
+    {
+        $med=EPMedicine::where('medicine_id',$id)->first();
+        return view('customer.medDetails')->with('med',$med);
+    }
 }

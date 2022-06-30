@@ -69,7 +69,9 @@ class CustomerController extends Controller
                 'customer_add' => $rq->address,
                 'pro_pic'=>"cus_pic/".$image_name]
         );
-
+        $cus =EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->first();
+        session()->forget('loggedCustomer');
+        session()->put('loggedCustomer',$cus);
         session()->flash('msg','Edit saved');
         return back();
     }
