@@ -27,4 +27,14 @@ class MedicineController extends Controller
         $med=EPMedicine::where('medicine_id',$id)->first();
         return view('customer.medDetails')->with('med',$med);
     }
+
+    public function checkStock($med_id){
+// checking the stock, if available sent to order placing form
+        $med=EPMedicine::where('medicine_id',$med_id)->first();
+        if(($med->availability)==0){
+         return back()->withErrors(["stockOut" => "This medicine is currently stock out"]);
+        }
+        else
+        return view('customer.buyNow')->with('med',$med);
+     }
 }

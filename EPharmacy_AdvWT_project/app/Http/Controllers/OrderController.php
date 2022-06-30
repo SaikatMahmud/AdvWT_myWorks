@@ -9,16 +9,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function placeOrder($med_id){
-       $med=EPMedicine::where('medicine_id',$med_id)->first();
-       if(($med->availability) ==0){
-        return back()->withErrors(["stockOut" => "This medicine is currently stock out"]);
-       }
-       else
-       return view('customer.buyNow')->with('med',$med);
-    }
-
-    public function confirmOrder(Request $rq){
+    public function confirmOrder(Request $rq){ //placing order from buyNow page
         $rq->validate(
             [
                 "quantity" => "required|integer|max:$rq->orgQuantity",
@@ -33,12 +24,12 @@ class OrderController extends Controller
             ]
         );
         $ord=new EPOrder();
-        $ord->amount=0;
+        $ord->amount=$rq->price*$rq->quantity;
         $ord->method=$rq->method;
         $ord->status="Pending";
         $ord->c_id=session()->get('loggedCustomer')->customer_id;
         $ord->save();
-        $ord->Medicines()->attach($rq->medId);
+        $ord->Medicines()->attach($rq->medId,['quantity'=>$rq->quantity]);
 
         if ($ord->save()){
         // updating customer address if changed during order
@@ -46,8 +37,12 @@ class OrderController extends Controller
             ['customer_add' => $rq->address]);
         // updating medicine stock (minus)
         EPMedicine::where('medicine_id',$rq->medId)->update(['availability'=>($rq->orgQuantity-$rq->quantity)]);
-                           //session()->put('loggedCustomer',$cus);
-                return redirect()->route('home');
+            return view('customer.order_confirm_msg_page')->with('amount',$ord->amount);
+        }
     }
+
+    public function showList(){
+        $list=EPOrder::where('c_id',session()->get('loggedCustomer')->customer_id)->get();
+        return view('customer.orderList')->with('orders',$list);
     }
 }

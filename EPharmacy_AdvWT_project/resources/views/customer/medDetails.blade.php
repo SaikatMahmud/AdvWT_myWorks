@@ -20,7 +20,7 @@
         Genre: {{$med->genre}}<br><br>
         Brand: {{$med->Suppliers()->where('medicine_id',$med->medicine_id)->first()->Suppliers->supplier_name}}<br><br>
         Price: {{$med->price}} TK
-        &emsp;&emsp;&emsp;&emsp; <button><a href="{{route('place.order',['id'=>$med->medicine_id])}}">Buy now</a></button>
+        &emsp;&emsp;&emsp;&emsp; <button><a href="{{route('check.stock',['id'=>$med->medicine_id])}}">Buy now</a></button>
             </td>
         </table>
     </div>

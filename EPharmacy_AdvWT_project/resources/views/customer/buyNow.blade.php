@@ -6,6 +6,9 @@
 <form method="post" action="{{route('confirm.order')}}">
     {{ @csrf_field() }}
     <input type="hidden" name="medId" value="{{$med->medicine_id}}">
+    <input type="hidden" name="orgQuantity" value="{{$med->availability}}">
+    <input type="hidden" name="price" value="{{$med->price}}">
+    
     Medicine Name: <u>{{$med->medicine_name}}</u><input type="hidden" name="medName" value="{{$med->medicine_name}}"
         readonly><br>
     @error('medName')
@@ -14,12 +17,12 @@
     <br>
 
     Quantity: <input type="number" name="quantity" value="{{old('quantity')}}">
-    <input type="hidden" name="orgQuantity" value="{{$med->availability}}">
     <{{$med->availability}} pc<br>
         @error('quantity')
         {{ $message }} <br>
         @enderror
         <br>
+        Price: <u>{{$med->price}} TK</u>/pc <br><br>
 
         Payment method: <select name="method">
             <option value="">Select</option>

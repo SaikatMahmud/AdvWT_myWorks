@@ -26,8 +26,10 @@ Route::get('/registration',[CustomerController::class,'reg'])->name('cus.reg');
 Route::post('/registration',[CustomerController::class,'regSubmit'])->name('cus.reg.submit');
 Route::get('/search',[MedicineController::class,'searchResult'])->name('search.result');
 Route::get('/details/med/id={id}',[MedicineController::class,'details'])->name('med.details');
-Route::get('/med/id={id}/Order/place',[OrderController::class,'placeOrder'])->name('place.order');
-Route::post('/order/confirm',[OrderController::class,'confirmOrder'])->name('confirm.order');
+Route::get('/med/id={id}/Order/place',[MedicineController::class,'checkStock'])->name('check.stock');
+Route::post('/order/confirm',[OrderController::class,'confirmOrder'])->name('confirm.order'); //from buyNow page
+Route::post('/order/placed_confirm',[OrderController::class,'confirmPage'])->name('confirm.order.page'); //order confirmation page
+Route::get('/order/all/list',[OrderController::class,'showList'])->name('order.list');
 
 Route::get('/',[CustomerController::class,'home'])->name('home');
 Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
@@ -35,5 +37,5 @@ Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
 Route::get('/cart',[CustomerController::class,'cart'])->name('cus.cart');
 Route::get('/profile',[CustomerController::class,'profile'])->name('cus.profile');
 Route::post('/profile',[CustomerController::class,'editProfile'])->name('cus.profile.edit');
-Route::get('/orders',[CustomerController::class,'orders'])->name('cus.orders');
+
 
