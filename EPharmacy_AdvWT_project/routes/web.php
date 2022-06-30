@@ -35,6 +35,7 @@ Route::get('/',[CustomerController::class,'home'])->name('home');
 Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
 
 Route::get('/cart',[CustomerController::class,'cart'])->name('cus.cart');
+Route::get('/add-to-cart/{id}',[MedicineController::class,'addtocart'])->name('cus.addtocart');
 Route::get('/profile',[CustomerController::class,'profile'])->name('cus.profile');
 Route::post('/profile',[CustomerController::class,'editProfile'])->name('cus.profile.edit');
 

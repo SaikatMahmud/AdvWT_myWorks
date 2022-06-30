@@ -19,7 +19,8 @@
         Name: {{$med->medicine_name}}<br>
         Genre: {{$med->genre}}<br>
         Brand: {{$med->Suppliers()->where('medicine_id',$med->medicine_id)->first()->Suppliers->supplier_name}} 
-        &emsp;&emsp;&emsp; <button><a href="{{route('check.stock',['id'=>$med->medicine_id])}}">Buy now</a></button> <br>
+        &emsp;&emsp;&emsp; <button><a href="{{route('check.stock',['id'=>$med->medicine_id])}}">Buy now</a></button>
+        &emsp;<button><a href="{{route('cus.addtocart',['id'=>$med->medicine_id])}}">Add to cart</a></button> <br>
         Details: <a href="{{route('med.details',['id'=>$med->medicine_id])}}">see more</a>...<br>
         Price: {{$med->price}} TK
     </td>

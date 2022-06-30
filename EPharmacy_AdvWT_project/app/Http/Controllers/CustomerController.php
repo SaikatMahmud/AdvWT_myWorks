@@ -43,7 +43,7 @@ class CustomerController extends Controller
                 "name" => "required",
                 "email" => "required|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",
                 "mobile" => "required",
-                "cus_pic"=>"mimes:jpg"
+                "cus_pic"=>"mimes:jpg,png,jpeg"
 
                 // "password" => "required|min:4", //|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}+$/",
                 //"confirmPass" => "required|min:4|same:password",
@@ -58,7 +58,7 @@ class CustomerController extends Controller
         if($rq->hasFile('cus_pic')){
         $image_name=(session()->get('loggedCustomer')->customer_id)."_".(session()->get('loggedCustomer')->customer_name)
                                                         .".".$rq->file('cus_pic')->getClientOriginalExtension();
-        File::delete('public/cus_pic',$image_name);
+        File::delete('public'.'/'.session()->get('loggedCustomer')->pro_pic);
         $rq->file('cus_pic')->storeAs('public/cus_pic',$image_name);
         }
 

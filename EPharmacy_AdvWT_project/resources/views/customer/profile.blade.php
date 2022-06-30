@@ -3,10 +3,11 @@
 @section('content')
 <h4>{{Session::get('msg')}}</h4>
 @php
-    $image=Session::get('loggedCustomer')->customer_id."_".Session::get('loggedCustomer')->customer_name.".jpg";
+    $image=Session::get('loggedCustomer')->pro_pic;
+   // $image=Session::get('loggedCustomer')->customer_id."_".Session::get('loggedCustomer')->customer_name.".jpg";
    // $imageFull=Storage::extension('public/cus_pic/'.$image);
 @endphp
-<p><img src="{{asset('storage/cus_pic').'/'.$image}}" alt="profile pic" height="90px" width="100px"><br></p>
+<p><img src="{{asset('storage').'/'.$image}}" alt="profile pic" height="90px" width="100px"><br></p>
 
 <form method="post" action="" enctype="multipart/form-data">
     {{@csrf_field()}}
