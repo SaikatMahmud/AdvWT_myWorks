@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::get('/registration',[CustomerController::class,'reg'])->name('cus.reg');
 Route::post('/registration',[CustomerController::class,'regSubmit'])->name('cus.reg.submit');
 Route::get('/search',[MedicineController::class,'searchResult'])->name('search.result');
 Route::get('/details/med/id={id}',[MedicineController::class,'details'])->name('med.details');
-Route::get('/med/id={id}/Order/place',[MedicineController::class,'placeOrder'])->name('place.order');
+Route::get('/med/id={id}/Order/place',[OrderController::class,'placeOrder'])->name('place.order');
 
 Route::get('/',[CustomerController::class,'home'])->name('home');
 Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
