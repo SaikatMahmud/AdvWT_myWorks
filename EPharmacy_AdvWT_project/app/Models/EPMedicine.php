@@ -21,4 +21,8 @@ class EPMedicine extends Model
         return $this->hasMany(EPSupplier_Medicine::class,'medicine_id','medicine_id');
     }
 
+    public function Carts(){
+        return $this->hasMany(EPCart::class,'medicine_id','medicine_id');
+    }
+
 }

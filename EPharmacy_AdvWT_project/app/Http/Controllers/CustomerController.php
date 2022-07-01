@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EPCart;
 use App\Models\EPCustomer;
 //use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Support\Facades\File;
@@ -29,7 +30,8 @@ class CustomerController extends Controller
     }
     public function cart()
     {
-        return view('customer.cart');
+        $cart=EPCart::where('customer_id',(session()->get('loggedCustomer')->customer_id))->get();
+        return view('customer.cart')->with('allCart',$cart);
     }
     public function orders()
     {

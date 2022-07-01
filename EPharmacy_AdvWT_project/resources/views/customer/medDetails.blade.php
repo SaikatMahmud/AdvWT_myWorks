@@ -38,6 +38,7 @@
                         <button>Add to cart</button>&emsp;&emsp;&emsp;&emsp;&emsp;
                 </form>
             </div>
+            <b>{{Session::get('added'.$key)}}</b>
         </td>
     </table>
 </div>

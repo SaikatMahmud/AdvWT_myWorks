@@ -16,7 +16,7 @@ class LoginController extends Controller
         return view('login');   
     }
     public function logout(){
-        session()->flush();
+        session()->flush(); //delete all session
         session()->flash('msg','Sucessfully Logged out');
         return redirect()->route('user.login');
     }

@@ -16,4 +16,7 @@ class EPCustomer extends Model
     public function Orders(){
         return $this->hasMany(EPOrder::class,'c_id','customer_id');
     }
+    public function Carts(){
+        return $this->hasMany(EPCart::class,'customer_id','customer_id');
+    }
 }
