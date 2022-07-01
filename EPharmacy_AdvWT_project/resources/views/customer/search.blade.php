@@ -13,19 +13,33 @@
 @error('stockOut')
 {{$message}} <br>
 @enderror
-@foreach ($results as $med)
+@foreach ($results as $key=>$med)
 <table border="1" align="center" cellpadding="10" width="40%">
     <td>
         Name: {{$med->medicine_name}}<br>
         Genre: {{$med->genre}}<br>
-        Brand: {{$med->Suppliers()->where('medicine_id',$med->medicine_id)->first()->Suppliers->supplier_name}} 
-        &emsp;&emsp;&emsp; <button><a href="{{route('check.stock',['id'=>$med->medicine_id])}}">Buy now</a></button>
-        &emsp;<button><a href="{{route('cus.addtocart',['id'=>$med->medicine_id])}}">Add to cart</a></button> <br>
+        Brand: {{$med->Suppliers()->where('medicine_id',$med->medicine_id)->first()->Suppliers->supplier_name}}
+        &emsp;&emsp;&emsp; {{--<button><a href="{{route('check.stock',['id'=>$med->medicine_id])}}">Buy now</a></button>
+        --}}
         Details: <a href="{{route('med.details',['id'=>$med->medicine_id])}}">see more</a>...<br>
         Price: {{$med->price}} TK
+        <div style="text-align: right;">
+            <form method="post" action="{{route('cus.addtocart')}}">
+                {{@csrf_field()}}
+                <input type="number" name="quantity{{$key}}" value="{{old('quantity'.$key)}}" placeholder="Quantity">
+                <{{$med->availability}} pc<br>
+                    @error('quantity'.$key)
+                    {{$message}} <br>
+                    @enderror
+                    <input type="hidden" name="key" value="{{$key}}">
+                    <input type="hidden" name="medId" value="{{$med->medicine_id}}">
+                    <input type="hidden" name="avlQuantity" value="{{$med->availability}}">
+                    <button>Add to cart</button>&emsp;&emsp;&emsp;&emsp;&emsp;
+            </form>
+        </div>
     </td>
-    &nbsp;
 </table>
+&nbsp;
 @endforeach
 <br>
 <div align="center">{{ $results->links() }}</div>

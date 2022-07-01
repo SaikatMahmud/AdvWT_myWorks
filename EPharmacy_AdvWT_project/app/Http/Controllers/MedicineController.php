@@ -39,34 +39,48 @@ class MedicineController extends Controller
             return view('customer.buyNow')->with('med', $med);
     }
 
-    public function addtocart($med_id)
-    {
-        $med = EPMedicine::where('medicine_id', $med_id)->first();
-        $cart = session()->get('cart');
-        // if cart is empty
-        if (!$cart) {
-            $cart = [
-                $med_id => [
-                    "name" => $med->medicine_name,
-                    "quantity" => 1,
-                    "price" => $med->price,
-                ]
-            ];
-            session()->put('cart', $cart);
-        }
-        // if cart not empty
-        if (isset($cart[$med_id])) {
-            $cart[$med_id]['quantity']++;
-            session()->put('cart', $cart);
-        }
-        // if item not exist in cart 
-        else {
-            $cart[$med_id] = [
-                "name" => $med->medicine_name,
-                "quantity" => 1,
-                "price" => $med->price,
-            ];
-            session()->put('cart', $cart);
-        }
+    public function addToCart(Request $rq){
+        $rq->validate(
+            [
+                "quantity$rq->key" => "required|integer|max:$rq->avlQuantity",
+            ],
+            [
+                "quantity$rq->key.required"=>"The quantity field is required.",
+                "quantity$rq->key.integer"=>"Must be an decimal number",
+                "quantity$rq->key.max"=>"More than avaiable stock",
+            ]
+        );
+        return "added";
     }
+
+    // public function addtocart($med_id)
+    // {
+    //     $med = EPMedicine::where('medicine_id', $med_id)->first();
+    //     $cart = session()->get('cart');
+    //     // if cart is empty
+    //     if (!$cart) {
+    //         $cart = [
+    //             $med_id => [
+    //                 "name" => $med->medicine_name,
+    //                 "quantity" => 1,
+    //                 "price" => $med->price,
+    //             ]
+    //         ];
+    //         session()->put('cart', $cart);
+    //     }
+    //     // if cart not empty
+    //     if (isset($cart[$med_id])) {
+    //         $cart[$med_id]['quantity']++;
+    //         session()->put('cart', $cart);
+    //     }
+    //     // if item not exist in cart 
+    //     else {
+    //         $cart[$med_id] = [
+    //             "name" => $med->medicine_name,
+    //             "quantity" => 1,
+    //             "price" => $med->price,
+    //         ];
+    //         session()->put('cart', $cart);
+    //     }
+    // }
 }
