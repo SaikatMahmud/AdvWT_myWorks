@@ -21,7 +21,7 @@ class EPOrder extends Model
     public function Medicines(){
        // return $this->hasMany(EPOrder_Medicine::class,'order_id','order_id');
        // return $this->belongsToMany(EPOrder_Medicine::class,'order_id','order_id');
-       return $this->belongsToMany(EPMedicine::class, 'order_medicine','order_id','medicine_id')
+       return $this->belongsToMany(EPMedicine::class, 'order_medicine','order_id','medicine_id','order_id','medicine_id')
        ->withPivot(['quantity']);
 
     }
