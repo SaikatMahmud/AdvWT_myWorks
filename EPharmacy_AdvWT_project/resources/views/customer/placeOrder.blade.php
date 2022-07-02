@@ -1,6 +1,14 @@
 @extends('layouts.afterLogin')
 @php $user=session()->get('loggedCustomer'); @endphp
 
+
+
+********** THIS PAGE IS NOT NEEDED ***********
+
+
+
+
+
 @section('content')
 <h3>Place your order</h3>
 <form method="post" action="{{route('confirm.order')}}">

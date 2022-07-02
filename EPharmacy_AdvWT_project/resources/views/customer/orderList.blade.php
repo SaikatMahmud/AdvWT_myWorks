@@ -1,7 +1,7 @@
 @extends('layouts.afterLogin')
 @section('content')
-
-<table border="1">
+<br>
+<table border="1" cellpadding="4">
     <tr>
         <th>Serial</th>
         <th>Order Number</th>
@@ -11,13 +11,22 @@
     </tr>
     @foreach ($orders as $key=>$order)
     <tr>
-        <td>{{$key}}</td>
-        <td>{{$order->order_id}}</td>
-        <td>{{$order->amount}}</td>
-        <td>{{$order->status}}</td>
-        <td>Cancel | Download</td>
+        <td align="center">{{$key+1}}</td>
+        <td align="center"><a href="{{route('order.details',['id'=>$order->order_id])}}">#{{$order->order_id}}</a></td>
+        <td align="center">{{$order->amount}}</td>
+        <td align="center">{{$order->status}}</td>
+        <td align="center">
+            @if ($order->status=="Canceled")
+            <button>Download</button>
+
+            @else
+            <button><a href="{{route('order.cancel',['id'=>$order->order_id])}}">Cancel</a></button>
+            | Download
+        </td>
+        @endif
     </tr>
-    
-@endforeach
-</table>
+
+    @endforeach
+</table><br>
+<div align="center">{{ $orders->links() }}</div>
 @endsection

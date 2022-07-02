@@ -33,6 +33,7 @@ class CustomerController extends Controller
         $cart=EPCart::where('customer_id',(session()->get('loggedCustomer')->customer_id))->get();
         return view('customer.cart')->with('allCart',$cart);
     }
+
     public function orders()
     {
         return view('customer.order');

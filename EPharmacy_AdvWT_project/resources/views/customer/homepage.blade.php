@@ -5,7 +5,7 @@
 @endif
 
 @section('content')
-<h1 align='center'><i> ``````Get medicine at your doorstep !``````</i></h1>
+<h1 align='center'>Customer Homepage <br><br><i>``````Get medicine at your doorstep !``````</i></h1>
 <form method="get" action="{{route('search.result')}}">
 <input type="text" name="search" placeholder="Search here" value="">
 <input type="submit" value="search">
