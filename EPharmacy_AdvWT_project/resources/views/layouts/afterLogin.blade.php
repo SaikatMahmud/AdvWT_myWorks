@@ -6,7 +6,7 @@
             ||&emsp;
             <a href="{{route('about')}}">About Us</a>
             ||&emsp;
-            <a href="">Contact us</a>
+            <a href="{{route('contactUs')}}">Contact us</a>
 
             ||&emsp; &emsp; &emsp; &emsp; 
             

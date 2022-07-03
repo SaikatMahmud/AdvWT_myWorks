@@ -7,6 +7,8 @@
             <a href="{{route('user.login')}}">Login</a>
             ||&emsp;
             <a href="{{route('about')}}">About Us</a>
+            ||&emsp;
+            <a href="{{route('contactUs')}}">Contact us</a>
         </div>
         <br>
         <div>

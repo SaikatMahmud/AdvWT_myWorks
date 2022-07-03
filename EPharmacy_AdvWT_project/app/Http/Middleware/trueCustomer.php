@@ -19,6 +19,6 @@ class trueCustomer
         if(session()->has('loggedCustomer'))
         return $next($request);
         else
-        return redirect()->route('login');
+        return redirect()->route('user.login');
     }
 }

@@ -4,5 +4,5 @@
 @endif
 
 @section('content')
-<h2 align="center"> This is about us </h2>
+<h2 align="center"> This is contact info </h2>
 @endsection

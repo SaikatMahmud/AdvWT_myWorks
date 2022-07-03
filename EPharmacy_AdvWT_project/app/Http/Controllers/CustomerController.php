@@ -18,6 +18,10 @@ class CustomerController extends Controller
     {
         return view('about'); //done
     }
+    public function contact()
+    {
+        return view('contact'); //done
+    }
     public function reg()
     {
         return view('customer.reg'); //done
@@ -25,13 +29,13 @@ class CustomerController extends Controller
 
     public function profile()
     {
-        $cus=EPCustomer::where('customer_id',(session()->get('loggedCustomer')->customer_id))->first();
-        return view('customer.profile')->with('cus',$cus);
+        $cus = EPCustomer::where('customer_id', (session()->get('loggedCustomer')->customer_id))->first();
+        return view('customer.profile')->with('cus', $cus);
     }
     public function cart()
     {
-        $cart=EPCart::where('customer_id',(session()->get('loggedCustomer')->customer_id))->get();
-        return view('customer.cart')->with('allCart',$cart);
+        $cart = EPCart::where('customer_id', (session()->get('loggedCustomer')->customer_id))->get();
+        return view('customer.cart')->with('allCart', $cart);
     }
 
     public function orders()
@@ -45,8 +49,9 @@ class CustomerController extends Controller
             [
                 "name" => "required",
                 "email" => "required|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",
+                "email" => "unique:customers,customer_email," . session()->get('loggedCustomer')->customer_id . ",customer_id",
                 "mobile" => "required",
-                "cus_pic"=>"mimes:jpg,png,jpeg"
+                "cus_pic" => "mimes:jpg,png,jpeg"
 
                 // "password" => "required|min:4", //|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}+$/",
                 //"confirmPass" => "required|min:4|same:password",
@@ -57,26 +62,38 @@ class CustomerController extends Controller
             ]
         );
 
-        $image_name="";
-        if($rq->hasFile('cus_pic')){
-        $image_name=(session()->get('loggedCustomer')->customer_id)."_".(session()->get('loggedCustomer')->customer_name)
-                                                        .".".$rq->file('cus_pic')->getClientOriginalExtension();
-        File::delete('public'.'/'.session()->get('loggedCustomer')->pro_pic);
-        $rq->file('cus_pic')->storeAs('public/cus_pic',$image_name);
-        }
 
-        EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->update(
-               ['customer_name' => $rq->name,
-                'customer_email' => $rq->email,
-                'customer_mob' => $rq->mobile,
-                'customer_add' => $rq->address,
-                'pro_pic'=>"cus_pic/".$image_name]
-        );
+        if ($rq->hasFile('cus_pic')) {
+            $image_name = "";
+            $image_name = (session()->get('loggedCustomer')->customer_id) . "_" . (session()->get('loggedCustomer')->customer_name)
+                . "." . $rq->file('cus_pic')->getClientOriginalExtension();
+            File::delete('public' . '/' . session()->get('loggedCustomer')->pro_pic);
+            $rq->file('cus_pic')->storeAs('public/cus_pic', $image_name);
+            EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->update(
+                [
+                    'customer_name' => $rq->name,
+                    'customer_email' => $rq->email,
+                    'customer_mob' => $rq->mobile,
+                    'customer_add' => $rq->address,
+                    'pro_pic' => "cus_pic/" . $image_name //if has file
+                ]
+            );
+        } 
+        else {
+            EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->update(
+                [
+                    'customer_name' => $rq->name,
+                    'customer_email' => $rq->email,
+                    'customer_mob' => $rq->mobile,
+                    'customer_add' => $rq->address //there is no file
+                ]
+            );
+        }
         // getting new session after profile edit
-        $cus =EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->first();
+        $cus = EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->first();
         session()->forget('loggedCustomer');
-        session()->put('loggedCustomer',$cus);
-        session()->flash('msg','Edit saved');
+        session()->put('loggedCustomer', $cus);
+        session()->flash('msg', 'Edit saved');
         return back();
     }
 
@@ -85,7 +102,7 @@ class CustomerController extends Controller
         $rq->validate(
             [
                 "name" => "required",
-                "email" => "required|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",
+                "email" => "required|unique:customers,customer_email|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",
                 "mobile" => "required",
                 "password" => "required|min:4", //|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}+$/",
                 "confirmPass" => "required|min:4|same:password",
@@ -102,7 +119,8 @@ class CustomerController extends Controller
         $cus->password = bcrypt($rq->password);
         $cus->save();
         if ($cus->save())
-            return redirect()->route('home');
+            session()->flash('regSuccess', 'Registration Success, Login now');
+        return redirect()->route('home');
 
         //return "Registration failed";
 
