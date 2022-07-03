@@ -20,9 +20,9 @@ class CreateCustomersTable extends Migration
             $table->string('customer_mob',15)->unique();
             $table->string('customer_add',70);
             $table->string('password',60);
+            $table->timestamps();
            // $table->timestamp('email_verified_at')->nullable();
             //$table->rememberToken();
-           // $table->timestamps();
         });
     }
 

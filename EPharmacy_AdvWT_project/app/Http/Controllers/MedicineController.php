@@ -13,9 +13,10 @@ class MedicineController extends Controller
         // if (isset($rq->search)) 
         // {
         $keyword = $rq->search;
-        //$res=EPMedicine::where('medicine_name','like','%'.$keyword.'%')->orWhere('genre','like','%'.$keyword.'%')  
-        //
-        $res = EPMedicine::paginate(2);
+        //$res=EPMedicine::where('medicine_name','like','%'.$keyword.'%')->orWhere('genre','like','%'.$keyword.'%')->paginate(2);
+        $res=EPMedicine::where('medicine_name','like',$keyword.'%')->paginate(3);
+       // $res=$res->toQuery()->paginate(3);
+        //$res = EPMedicine::paginate(2);
         return view('customer.search')->with('results', $res);
         //}
         // else

@@ -14,10 +14,10 @@ class CreateWorkersTable extends Migration
     public function up()
     {
         Schema::create('workers', function (Blueprint $table) {
-            $table->increments('admin_id');
-            $table->string('admin_name',25);
-            $table->string('admin_mob',15);
-            $table->string('admin_email',20);
+            $table->increments('worker_id');
+            $table->string('worker_name',25);
+            $table->string('worker_mob',15);
+            $table->string('worker_email',20);
             $table->string('password',60);
         });
     }
