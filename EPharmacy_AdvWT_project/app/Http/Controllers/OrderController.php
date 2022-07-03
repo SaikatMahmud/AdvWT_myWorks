@@ -8,6 +8,8 @@ use App\Models\EPMedicine;
 use App\Models\EPOrder;
 use Illuminate\Http\Request;
 
+
+
 class OrderController extends Controller
 {
     // public function placeOrder(Request $rq){
@@ -39,20 +41,20 @@ class OrderController extends Controller
         foreach ($medicines as $med) { //adding in order_medicine table
             $ord->Medicines()->attach($med->medicine_id, ['quantity' => $med->quantity]);
         }
-        if ($ord->save()) {
-            // updating medicine stock (minus)
-            foreach ($medicines as $med) {
-                EPMedicine::where('medicine_id', $med->medicine_id)->decrement('availability', $med->quantity);
-            }
-            //deleting all form cart
-            EPCart::where('customer_id', session()->get('loggedCustomer')->customer_id)->delete();
-            // updating customer address if changed during order
-            EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->update(['customer_add' => $rq->address]);
-            $cus = EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->first();
-            session()->forget('loggedCustomer');
-            session()->put('loggedCustomer', $cus);
-            return view('customer.order_confirm_msg_page')->with('amount', $ord->amount);
-        }
+        // if ($ord->save()) {
+        //     // updating medicine stock (minus)
+        //     foreach ($medicines as $med) {
+        //         EPMedicine::where('medicine_id', $med->medicine_id)->decrement('availability', $med->quantity);
+        //     }
+        //     //deleting all form cart
+        //     EPCart::where('customer_id', session()->get('loggedCustomer')->customer_id)->delete();
+        //     // updating customer address if changed during order
+        //     EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->update(['customer_add' => $rq->address]);
+        //     $cus = EPCustomer::where('customer_id', session()->get('loggedCustomer')->customer_id)->first();
+        //     session()->forget('loggedCustomer');
+        //     session()->put('loggedCustomer', $cus);
+        //     return view('customer.order_confirm_msg_page')->with('amount', $ord->amount);
+        // }
     }
 
     public function showList()
@@ -71,5 +73,10 @@ class OrderController extends Controller
     {
         $details = EPOrder::where('order_id', $id)->first();
         return view('customer.orderDetails')->with('order', $details);
+    }
+
+    public function downloadReceipt(){
+
+
     }
 }

@@ -21,7 +21,7 @@
 
             @else
             <button><a href="{{route('order.cancel',['id'=>$order->order_id])}}">Cancel</a></button>
-            | Download
+            | <button>Download</button>
         </td>
         @endif
     </tr>
