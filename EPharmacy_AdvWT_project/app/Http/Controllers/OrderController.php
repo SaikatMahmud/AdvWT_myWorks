@@ -7,6 +7,7 @@ use App\Models\EPCustomer;
 use App\Models\EPMedicine;
 use App\Models\EPOrder;
 use Illuminate\Http\Request;
+use Dompdf\Dompdf;
 
 class OrderController extends Controller
 {
@@ -36,7 +37,7 @@ class OrderController extends Controller
         $ord->status = "Pending";
         $ord->c_id = session()->get('loggedCustomer')->customer_id;
         $ord->save();
-        
+
         if ($ord->save()) {
             foreach ($medicines as $med) { //adding in order_medicine table
                 $ord->Medicines()->attach($med->medicine_id, ['quantity' => $med->quantity]);
@@ -72,5 +73,15 @@ class OrderController extends Controller
     {
         $details = EPOrder::where('order_id', $id)->first();
         return view('customer.orderDetails')->with('order', $details);
+    }
+
+    public function downloadReceipt($id)
+    {
+        $dompdf = new Dompdf();
+        $details = EPOrder::where('order_id', $id)->first();
+        $dompdf->loadHtml(view('customer.downloadOrder')->with('order', $details));
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream('order_receipt.pdf',['Attachment'=>false]);
     }
 }

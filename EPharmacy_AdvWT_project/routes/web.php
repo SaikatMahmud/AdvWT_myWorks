@@ -47,6 +47,7 @@ Route::post('/order/placed_confirm',[OrderController::class,'confirmPage'])->nam
 Route::get('/order/all/list',[OrderController::class,'showList'])->name('order.list')->middleware('logged.Customer'); //show all order of customer
 Route::get('/cancel/order/{id}',[OrderController::class,'cancelOrder'])->name('order.cancel')->middleware('logged.Customer'); //cancel an order on click
 Route::get('/details/order/{id}',[OrderController::class,'orderDetails'])->name('order.details')->middleware('logged.Customer'); //show details in individual page
+Route::get('/order/receipt/{id}',[OrderController::class,'downloadReceipt'])->name('receipt.download')->middleware('logged.Customer');
 
 
 

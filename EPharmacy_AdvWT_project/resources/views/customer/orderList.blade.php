@@ -17,11 +17,11 @@
         <td align="center">{{$order->status}}</td>
         <td align="center">
             @if ($order->status=="Canceled")
-            <button>Download</button>
+            <button><a href="{{route('receipt.download',['id'=>$order->order_id])}}">Download</a></button>
 
             @else
             <button><a href="{{route('order.cancel',['id'=>$order->order_id])}}">Cancel</a></button>
-            | Download
+            |<button><a href="{{route('receipt.download',['id'=>$order->order_id])}}"> Download</a></button>
         </td>
         @endif
     </tr>
