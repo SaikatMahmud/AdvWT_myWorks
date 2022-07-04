@@ -7,6 +7,10 @@
 <div style="text-align: right;">
     <form method="get" action="{{route('search.result')}}">
         <input type="text" name="search" placeholder="Search here" value="">
+        <br>
+        @error('search')
+        {{$message}} <br>
+        @enderror
         <input type="submit" value="search">
     </form>
 </div>

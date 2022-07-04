@@ -9,6 +9,10 @@
 <h1 align='center'>Customer Homepage <br><br><i>``````Get medicine at your doorstep !``````</i></h1>
 <form method="get" action="{{route('search.result')}}">
 <input type="text" name="search" placeholder="Search here" value="">
+<br>
+@error('search')
+{{$message}} <br>
+@enderror
 <input type="submit" value="search">
 
 </form>

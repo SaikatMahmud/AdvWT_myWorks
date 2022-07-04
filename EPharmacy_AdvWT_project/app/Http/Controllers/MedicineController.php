@@ -10,19 +10,18 @@ class MedicineController extends Controller
 {
     public function searchResult(Request $rq)
     {
-        // if (isset($rq->search)) 
-        // {
+        $rq->validate(
+            [
+                "search" => "required",
+            ],
+        );
         $keyword = $rq->search;
         //$res=EPMedicine::where('medicine_name','like','%'.$keyword.'%')->orWhere('genre','like','%'.$keyword.'%')->paginate(2);
-        $res=EPMedicine::where('medicine_name','like',$keyword.'%')->paginate(3);
-       // $res=$res->toQuery()->paginate(3);
+        $res = EPMedicine::where('medicine_name', 'LIKE', "{$keyword}%")->paginate(3)->withQueryString();
+        // $ress=$res->toQuery()->paginate(3);
         //$res = EPMedicine::paginate(2);
         return view('customer.search')->with('results', $res);
-        //}
-        // else
-        // return "you didn't";
-        //return view('customer.search')
-        // print_r($rq->search);
+
     }
 
     public function details($id)

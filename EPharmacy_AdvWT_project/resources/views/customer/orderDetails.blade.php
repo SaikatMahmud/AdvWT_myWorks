@@ -1,6 +1,6 @@
 @extends('layouts.afterLogin')
 @section('content')
-<div style="background: ghostwhite; 
+<div style="background: white; 
             font-size: 20px; 
             padding: 25px; 
             border: 1px solid black; 
