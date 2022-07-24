@@ -16,8 +16,8 @@ class MedicineController extends Controller
             ],
         );
         $keyword = $rq->search;
-        //$res=EPMedicine::where('medicine_name','like','%'.$keyword.'%')->orWhere('genre','like','%'.$keyword.'%')->paginate(2);
-        $res = EPMedicine::where('medicine_name', 'LIKE', "{$keyword}%")->paginate(3)->withQueryString();
+        $res = EPMedicine::where('medicine_name', 'LIKE', "%{$keyword}%")->orWhere('genre','like',"%{$keyword}%")
+        ->paginate(3)->withQueryString();
         // $ress=$res->toQuery()->paginate(3);
         //$res = EPMedicine::paginate(2);
         return view('customer.search')->with('results', $res);

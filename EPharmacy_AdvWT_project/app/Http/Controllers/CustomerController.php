@@ -62,7 +62,6 @@ class CustomerController extends Controller
             ]
         );
 
-
         if ($rq->hasFile('cus_pic')) {
             $image_name = "";
             $image_name = (session()->get('loggedCustomer')->customer_id) . "_" . (session()->get('loggedCustomer')->customer_name)

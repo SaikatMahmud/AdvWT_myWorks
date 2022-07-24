@@ -60,7 +60,7 @@ class OrderController extends Controller
     public function showList()
     { //show all order of a customer
         $list = EPOrder::where('c_id', session()->get('loggedCustomer')->customer_id)->orderBy('created_at', 'DESC')
-        ->paginate(10)->withQueryString();
+        ->paginate(4)->withQueryString();
         return view('customer.orderList')->with('orders', $list);
     }
 
