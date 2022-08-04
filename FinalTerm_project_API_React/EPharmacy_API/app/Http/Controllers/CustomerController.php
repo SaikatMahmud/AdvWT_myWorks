@@ -7,6 +7,7 @@ use App\Models\EPCustomer;
 //use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -98,7 +99,7 @@ class CustomerController extends Controller
 
     public function regSubmit(Request $rq)
     {
-        $rq->validate(
+        $validator = Validator::make($rq->all(),
             [
                 "name" => "required",
                 "email" => "required|unique:customers,customer_email|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",
@@ -111,15 +112,18 @@ class CustomerController extends Controller
                 "confirmPass.same" => "Both passsword not matched"
             ]
         );
+        if ($validator->fails()){
+            return response()->json($validator->errors(),422);
+        }
         $cus = new EPCustomer();
         $cus->customer_name = $rq->name;
         $cus->customer_email = $rq->email;
         $cus->customer_mob = $rq->mobile;
         $cus->password = bcrypt($rq->password);
         $cus->save();
-        if ($cus->save())
-            session()->flash('regSuccess', 'Registration Success, Login now');
-        return redirect()->route('home');
+        // if ($cus->save())
+        //     session()->flash('regSuccess', 'Registration Success, Login now');
+        //return redirect()->route('home');
 
         //return "Registration failed";
 
