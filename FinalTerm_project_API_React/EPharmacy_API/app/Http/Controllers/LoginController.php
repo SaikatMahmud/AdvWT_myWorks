@@ -6,10 +6,13 @@ use App\Models\EPAdmin;
 use App\Models\EPCustomer;
 use App\Models\EPDeliveryman;
 use App\Models\EPSupplier;
+use App\Models\EPToken;
 use App\Models\EPWorker;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -35,38 +38,34 @@ class LoginController extends Controller
     
             if (Auth::attempt(['customer_email'=>$rq->email,'password'=>$rq->password])) {
                     //no guard, default auth with 'User.php' model
-                $cus =EPCustomer::where('customer_email', $rq->email)->first();
-                return response()->json("your are a customer");
+                $cus_id =EPCustomer::where('customer_email', $rq->email)->first(['customer_id']);
+                $tkey= Str::random(43);
+                $token=new EPToken();
+                $token->user_id=$cus_id->customer_id;
+                $token->token_key=$tkey;
+                $token->created_at=new DateTime();
+                $token->save();
+                return response()->json($token);
                // session()->put('loggedCustomer',$cus);
                 //return redirect()->route('home');
             }
             else if (Auth::guard('supplier')->attempt(['supplier_email'=>$rq->email,'password'=>$rq->password])) {
-                return "You are Supplier !";
+                return response()->json("You are a supplier");
             }
             else if (Auth::guard('deliveryman')->attempt(['delman_email'=>$rq->email,'password'=>$rq->password])) {
-                return "You are Deliveryman !";
+                return response()->json("You are a Delivery Man");
             }
             else if (Auth::guard('worker')->attempt(['worker_email'=>$rq->email,'password'=>$rq->password])) {
-                return "You are Worker !";
+                return response()->json("You are a Worker");
             }
             else if (Auth::guard('admin')->attempt(['admin_email'=>$rq->email,'password'=>$rq->password])) {
-                return "You are Admin";
+                return response()->json("You are a Admin");
             }
             else
-                return back()->withErrors(
-                    ["notFound" => "Email or password not found"]);
+            return response()->json(["msg"=>"Invalid email or password"]);
+                // return back()->withErrors(
+                //     ["notFound" => "Email or password not found"]);
 
-
-            //    if ($user->type == 'Admin'){
-            //         session()->put('loggedAdmin',$user->id);
-            //         return redirect()->route('user.dash.admin');
-            //     }
-    
-            //     else{
-            //     session()->put('loggedUser',$user->id);
-            //     return redirect()->route('user.dash');
-            //     }
-            // }
     
         }
 }

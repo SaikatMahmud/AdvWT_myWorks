@@ -24,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/',[CustomerController::class,'home'])->name('home');
-Route::get('/aboutUs',[CustomerController::class,'about'])->name('about');
+Route::get('/aboutUs',[CustomerController::class,'about'])->name('about')->middleware('verify.api');
 Route::get('/contactUs',[CustomerController::class,'contact'])->name('contactUs');
 
 Route::get('/registration',[CustomerController::class,'reg'])->name('cus.reg');

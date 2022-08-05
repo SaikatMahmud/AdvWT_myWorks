@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axiosConfig from './axiosConfig';
 import axios from "axios";
 
 const Reg=()=>{
@@ -9,11 +10,11 @@ const Reg=()=>{
     const handleSubmit=(event)=>{
         event.preventDefault();
         const data={email:email,password:password};
-        axios.post("http://localhost:8000/api/login",data).
+       axiosConfig.post("/login",data).
         then((succ)=>{
-            //setMsg(succ.data.msg);
-            //window.location.href="/list";
             debugger;
+            localStorage.setItem('_authToken',succ.data.token_key);
+            localStorage.setItem('_authUserId',succ.data.user_id);
         },(err)=>{
            debugger;
             setErrs(err.response.data);
